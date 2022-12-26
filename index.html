@@ -1,0 +1,56 @@
+<!doctype html><html>
+    <head>
+        <meta charset="UTF-8">
+        <title>WJK的废弃小站</title>
+
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/WuJunkai2004/WuJunkai2004.github.io@master/style/index.css" type="text/css" />  
+        <!--
+            <link rel="stylesheet" href="http://localhost:8000/style/index.css" type="text/css" />
+        -->
+        <script src="https://cdn.jsdelivr.net/gh/WuJunkai2004/WuJunkai2004.github.io@master/code/background.js"></script>
+        <meta name="author" content="Wu Junkai (wu.junkai@qq.com)"/>
+        <meta name="description" content="WJK的废弃小站"/>
+    </head>
+    <body onresize="resize()" style="background-repeat: no-repeat;background-size: cover;background-attachment: fixed;background-image: url(https://i.loli.net/2020/04/03/gdGD1bkPfOu7rEq.jpg);">
+        <div class="background_image" style="background-image: url(https://i.loli.net/2020/07/21/KQwyWui97gsrVPY.jpg);"></div>
+        <div>
+            <ul id="menu_bar">
+                <li><a href="https://github.com/WuJunkai2004/">项目</a></li>
+                <li><a href="https://WuJunkai2004.github.io/html/blogs.html">博客</a></li>
+                <li><a href="https://WuJunkai2004.github.io/html/tools.html">工具</a></li>
+                <li><a href="html/article.html?../data/thank.json">感谢</a></li>
+            </ul>
+        </div>
+        <div class="hitokoto" onclick="hitokoto()">
+            <p id="hitokoto_text"></p>
+            <p id="hitokoto_from"></p>
+            <script>//for hitokoto
+                function hitokoto(){fetch('https://v1.hitokoto.cn').then(response => response.json()).then(data => {
+                    document.getElementById('hitokoto_text').innerText = data.hitokoto;
+                    document.getElementById('hitokoto_from').innerText = "——" + data.from;
+                });}
+                hitokoto();
+            </script>
+        </div>
+        <script src="https://cdn.jsdelivr.net/gh/WuJunkai2004/WuJunkai2004.github.io@master/code/debug.js"></script>
+        <script>
+            debug(window.location.search.substring(1));
+        </script>
+        <script>
+            resize=function(){};
+        </script>
+        <script>
+            /*
+            change_back_image([
+                'https://i.loli.net/2020/07/29/zUfF8nJcldi72YB.jpg',
+                'https://i.loli.net/2020/07/29/KTwJpzL2dVB8xyW.jpg',
+                'https://i.loli.net/2020/07/29/9nFEseJkIApRL4D.jpg',
+                'https://i.loli.net/2020/07/29/f7BKQuAYGL3v4qs.png',
+                'https://i.loli.net/2020/07/29/gwRiXQSmWvkqsLp.png',
+                'https://i.loli.net/2020/07/29/t3mMcIVql5uSZF1.jpg',
+                'https://i.loli.net/2020/07/21/KQwyWui97gsrVPY.jpg'
+            ],6)
+            */
+        </script>
+    </body>
+</html>

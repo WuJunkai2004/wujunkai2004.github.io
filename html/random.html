@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>2021社团嘉年华</title>
+        <script>data={"幸运奖":{"number":5,"width":"750px","left":"180px"},"三等奖":{"number":3,"width":"520px","left":"300px"},"二等奖":{"number":2,"width":"400px","left":"360px"},"一等奖":{"number":1,"width":"270px","left":"410px"}}</script>
+        <style>
+            .prize{
+                position:fixed;
+                left:25%;
+            }
+            #prize_text{
+                font-family: cursive;
+                font-size: 100px;
+                color: rgb(255,255,255);
+                align-self: baseline;
+            }
+            .result{
+                position:fixed;
+                top:37%;
+                left: 10px;
+                height:200px;
+                background-color: rgba(255,255,255,0.3);
+                border:2px solid;  
+                border-radius:25px;  
+            }
+            #result_id{
+                font-size: 60px;
+                color: rgb(255,255,255);
+                position:relative;
+                left:80px;
+            }
+            .btn{
+                background-color: rgba(105, 201, 118,0.4);
+                position:fixed;
+                top: 66%;
+                left:28%;
+                border:2px solid;  
+                border-radius:25px;  
+                border-color: rgba(105, 201, 118,0.4);
+                width: 180px;
+            }
+            .btn_text{
+                font-size:  60px;
+                color: rgb(255,255,255);
+                text-align-last: center;
+                margin-top: 10px;
+                margin-bottom: 10px;
+            }
+        </style>
+
+        <script>
+            function get_sub_title(){
+                var sub_url=document.URL.split('#');
+                if(sub_url.length!=1)return decodeURI(sub_url[1]);else return '';
+            }
+            function get_random(){
+                return parseInt(Math.random()* 531 + 1);
+            }
+            function formated(n){
+                if(n<10)return `00${n}`;
+                if(n<100)return `0${n}`;
+                return String(n);
+            }
+            function get_list(n){
+                get=[];
+                for(var i=0;i<n;){
+                    var num = formated(get_random()); 
+                    if(get.indexOf(num)==-1){
+                        get.push(num);
+                        i++;
+                    }
+                }
+                return get;
+            }
+            //https://s2.loli.net/2021/12/26/OLI5rhF2DSanvwu.png 有字
+        </script>
+
+    </head>
+    <body onresize="resize()" style="background-repeat: no-repeat;background-size: cover;background-attachment: fixed;background-image: url(https://s2.loli.net/2021/12/26/NzX7tLsiqfS8PnD.png);">
+        <div class="prize" id="prize_show"><p class="prize" id='prize_text'></p></div>
+        <div class='result' id='result_bar'>
+            <p id='result_id'></p>
+        </div>
+
+        <div class='btn' onclick="start()" id='btn_start'>
+            <p class='btn_text'>开始</p>
+        </div>
+        <div class='btn' onclick="end()" id='btn_end'>
+            <p class='btn_text'>停止</p>
+        </div>
+
+
+        <script> 
+            (function add_title(){if(get_sub_title())document.title = document.title+' - '+get_sub_title();})();
+            (function showing(){
+                var sub=get_sub_title();
+                if(!data[sub])return;
+                document.getElementById('prize_text').innerText=sub;
+                document.getElementById('result_bar').style.width=data[sub].width;
+                document.getElementById('result_bar').style.left=data[sub].left;
+                document.getElementById('btn_end').hidden = true;
+                console.log('done');
+
+            })();
+            var timer=null;
+            function start(){
+                clearInterval(timer);
+                timer = setInterval(function(){
+                    var list=get_list(data[get_sub_title()].number);
+                    var luck=list.join(' ');
+                    document.getElementById('result_id').innerText = luck;
+                    document.getElementById('btn_end').hidden = false;
+                    document.getElementById('btn_start').hidden = true;
+                },80);
+            }
+            function end(){
+                document.getElementById('btn_end').hidden = true;
+                clearInterval(timer);
+            }
+        </script>
+    </body>
+</html>
