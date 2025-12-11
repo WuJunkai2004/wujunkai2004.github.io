@@ -1,56 +1,263 @@
-<!doctype html><html>
-    <head>
-        <meta charset="UTF-8">
-        <title>WJK的废弃小站</title>
+<!DOCTYPE html>
+<html lang="zh-CN">
 
-            <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/WuJunkai2004/WuJunkai2004.github.io@master/style/index.css" type="text/css" />  
-        <!--
-            <link rel="stylesheet" href="http://localhost:8000/style/index.css" type="text/css" />
-        -->
-        <script src="https://cdn.jsdelivr.net/gh/WuJunkai2004/WuJunkai2004.github.io@master/code/background.js"></script>
-        <meta name="author" content="Wu Junkai (wu.junkai@qq.com)"/>
-        <meta name="description" content="WJK的废弃小站"/>
-    </head>
-    <body onresize="resize()" style="background-repeat: no-repeat;background-size: cover;background-attachment: fixed;background-image: url(https://i.loli.net/2020/04/03/gdGD1bkPfOu7rEq.jpg);">
-        <div class="background_image" style="background-image: url(https://i.loli.net/2020/07/21/KQwyWui97gsrVPY.jpg);"></div>
-        <div>
-            <ul id="menu_bar">
-                <li><a href="https://github.com/WuJunkai2004/">项目</a></li>
-                <li><a href="https://WuJunkai2004.github.io/html/blogs.html">博客</a></li>
-                <li><a href="https://WuJunkai2004.github.io/html/tools.html">工具</a></li>
-                <li><a href="html/article.html?../data/thank.json">感谢</a></li>
-            </ul>
-        </div>
-        <div class="hitokoto" onclick="hitokoto()">
-            <p id="hitokoto_text"></p>
-            <p id="hitokoto_from"></p>
-            <script>//for hitokoto
-                function hitokoto(){fetch('https://v1.hitokoto.cn').then(response => response.json()).then(data => {
-                    document.getElementById('hitokoto_text').innerText = data.hitokoto;
-                    document.getElementById('hitokoto_from').innerText = "——" + data.from;
-                });}
-                hitokoto();
-            </script>
-        </div>
-        <script src="https://cdn.jsdelivr.net/gh/WuJunkai2004/WuJunkai2004.github.io@master/code/debug.js"></script>
-        <script>
-            debug(window.location.search.substring(1));
-        </script>
-        <script>
-            resize=function(){};
-        </script>
-        <script>
-            /*
-            change_back_image([
-                'https://i.loli.net/2020/07/29/zUfF8nJcldi72YB.jpg',
-                'https://i.loli.net/2020/07/29/KTwJpzL2dVB8xyW.jpg',
-                'https://i.loli.net/2020/07/29/9nFEseJkIApRL4D.jpg',
-                'https://i.loli.net/2020/07/29/f7BKQuAYGL3v4qs.png',
-                'https://i.loli.net/2020/07/29/gwRiXQSmWvkqsLp.png',
-                'https://i.loli.net/2020/07/29/t3mMcIVql5uSZF1.jpg',
-                'https://i.loli.net/2020/07/21/KQwyWui97gsrVPY.jpg'
-            ],6)
-            */
-        </script>
-    </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wu Junkai | 个人主页</title>
+  <meta name="description" content="Wu Junkai的个人主页">
+  <link rel="icon" href="favicon.ico">
+  <style>
+    :root {
+      --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --glass-bg: rgba(255, 255, 255, 0.1);
+      --glass-border: rgba(255, 255, 255, 0.2);
+      --text-color: #ffffff;
+      --text-secondary: rgba(255, 255, 255, 0.8);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+      /* 移除移动端点击高亮 */
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: var(--bg-gradient);
+      /* 关键修改：使用 min-height 允许内容过多时滚动，防止裁切 */
+      min-height: 100vh;
+      /* 关键修改：使用 flex + margin: auto 实现安全居中 */
+      display: flex;
+      flex-direction: column;
+      color: var(--text-color);
+      overflow-x: hidden;
+      /* 禁止横向滚动 */
+      position: relative;
+    }
+
+    /* 背景装饰 - 改为 fixed 防止撑开页面 */
+    .bg-circle {
+      position: fixed;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      animation: float 20s infinite ease-in-out;
+      z-index: -1;
+      pointer-events: none;
+      /* 防止遮挡点击 */
+    }
+
+    .c1 {
+      width: 300px;
+      height: 300px;
+      top: -50px;
+      left: -50px;
+    }
+
+    .c2 {
+      width: 200px;
+      height: 200px;
+      bottom: -50px;
+      right: -50px;
+      animation-delay: -10s;
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translate(0, 0);
+      }
+
+      50% {
+        transform: translate(30px, 50px);
+      }
+    }
+
+    /* 主卡片容器 */
+    .card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      padding: 40px;
+      width: 90%;
+      max-width: 480px;
+      text-align: center;
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+
+      /* 关键修改：利用 margin: auto 在 flex 容器中实现居中 */
+      margin: auto;
+      /* 增加上下间距，防止在小屏幕手机上贴边 */
+      margin-top: max(20px, 5vh);
+      margin-bottom: max(20px, 5vh);
+
+      transform: translateZ(0);
+      /* 开启硬件加速防止闪烁 */
+    }
+
+    /* 头像 */
+    .avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 4px solid rgba(255, 255, 255, 0.3);
+      margin-bottom: 20px;
+      object-fit: cover;
+      transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .avatar:hover {
+      transform: rotate(360deg) scale(1.05);
+    }
+
+    /* 名字与简介 */
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .bio {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+
+    /* 按钮链接组 */
+    .links {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 24px;
+      background: rgba(255, 255, 255, 0.15);
+      color: white;
+      text-decoration: none;
+      border-radius: 12px;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      border: 1px solid transparent;
+      /* 移动端触摸反馈优化 */
+      touch-action: manipulation;
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+      background: rgba(255, 255, 255, 0.25);
+    }
+
+    @media (hover: hover) {
+      .btn:hover {
+        background: rgba(255, 255, 255, 0.3);
+        border-color: rgba(255, 255, 255, 0.5);
+        transform: translateY(-2px);
+      }
+    }
+
+    /* 一言区域 */
+    .hitokoto-box {
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      font-style: italic;
+      min-height: 60px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .hitokoto-from {
+      display: block;
+      font-size: 0.8rem;
+      text-align: right;
+      margin-top: 5px;
+      opacity: 0.7;
+    }
+
+    /* 移动端特定优化 */
+    @media (max-width: 480px) {
+      .card {
+        padding: 30px 20px;
+        width: 88%;
+      }
+
+      h1 {
+        font-size: 1.75rem;
+      }
+
+      .bg-circle {
+        opacity: 0.6;
+        /* 移动端减淡背景干扰 */
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="bg-circle c1"></div>
+  <div class="bg-circle c2"></div>
+
+  <div class="card">
+    <img src="https://github.com/WuJunkai2004.png" alt="Wu Junkai" class="avatar">
+
+    <h1>Wu Junkai</h1>
+    <p class="bio">
+      仰望星空，脚踏实地。<br>
+      Student / Developer / Learner
+    </p>
+
+    <div class="links">
+      <a href="https://github.com/WuJunkai2004" target="_blank" class="btn">
+        <span>GitHub 主页</span>
+      </a>
+      <a href="https://github.com/WuJunkai2004?tab=repositories" target="_blank" class="btn">
+        <span>开源项目</span>
+      </a>
+      <a href="mailto:wujunkai20041123@outlook.com" class="btn">
+        <span>Email 联系</span>
+      </a>
+    </div>
+
+    <div class="hitokoto-box" id="hitokoto_box" title="点击刷新">
+      <span id="hitokoto_text">正在加载一言...</span>
+      <span id="hitokoto_from" class="hitokoto-from"></span>
+    </div>
+  </div>
+
+  <script>
+    // 现代化的 Fetch 写法获取一言
+    function fetchHitokoto() {
+      const textEl = document.getElementById('hitokoto_text');
+      const fromEl = document.getElementById('hitokoto_from');
+      fetch('https://v1.hitokoto.cn')
+        .then(response => response.json())
+        .then(data => {
+          textEl.innerText = data.hitokoto;
+          fromEl.innerText = `—— ${data.from}`;
+        })
+        .catch(console.error);
+    }
+    fetchHitokoto();
+    document.getElementById('hitokoto_box').addEventListener('click', fetchHitokoto);
+    console.log(`%c WJK's Page %c https://github.com/WuJunkai2004 `,
+      'background:#35495e ; padding: 1px; border-radius: 3px 0 0 3px;  color: #fff',
+      'background:#41b883 ; padding: 1px; border-radius: 0 3px 3px 0;  color: #fff'
+    );
+  </script>
+</body>
+
 </html>
